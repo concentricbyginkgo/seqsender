@@ -688,8 +688,12 @@ def main():
 
     log_parser = subparsers.add_parser('update_submissions',formatter_class=RawTextHelpFormatter,
         help='Using submission log, script updates existing process of submissions.',
-        parents=[parent_parser],
         description='Using submission log, script updates existing process of submissions.'
+    )
+    log_parser.add_argument('--upload_log',
+        help='file path for upload log file',
+        required=False,
+        default=(os.path.join(os.path.dirname(os.path.abspath(__file__)), "upload_log.csv"))
     )
 
     genbank_parser = subparsers.add_parser('genbank',formatter_class=RawTextHelpFormatter,
