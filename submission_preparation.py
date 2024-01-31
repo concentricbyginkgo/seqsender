@@ -117,6 +117,8 @@ def generate_XML(unique_name, main_df, generate_biosample, generate_sra):
                 datatype=ET.SubElement(file, "DataType")
                 datatype.text = "generic-data"
                 if config_dict["ncbi"]["SRA_file_column2"] != "" and pd.isnull(row[config_dict["ncbi"]["SRA_file_column2"]]) == False:
+                    print("WHY AM I HERE?")
+                    sys.exit(1)
                     file = ET.SubElement(addfile, "File")
                     file.set("cloud_url", row[config_dict["ncbi"]["SRA_file_column2"]])
                     datatype=ET.SubElement(file, "DataType")
