@@ -120,6 +120,7 @@ def generate_XML(unique_name, main_df, generate_biosample, generate_sra):
                     print("WHY AM I HERE?")
                     print("config_dict[\"ncbi\"][\"SRA_file_column2\"]: ", config_dict["ncbi"]["SRA_file_column2"])
                     print("row[config_dict[\"ncbi\"][\"SRA_file_column2\"]]: ", row[config_dict["ncbi"]["SRA_file_column2"]])
+                    print("pd.isnull(row[config_dict[\"ncbi\"][\"SRA_file_column2\"]])", pd.isnull(row[config_dict["ncbi"]["SRA_file_column2"]]))
                     sys.exit(1)
                     file = ET.SubElement(addfile, "File")
                     file.set("cloud_url", row[config_dict["ncbi"]["SRA_file_column2"]])
