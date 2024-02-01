@@ -116,11 +116,14 @@ def generate_XML(unique_name, main_df, generate_biosample, generate_sra):
                 file.set("cloud_url", row[config_dict["ncbi"]["SRA_file_column1"]])
                 datatype=ET.SubElement(file, "DataType")
                 datatype.text = "generic-data"
-                if config_dict["ncbi"]["SRA_file_column2"] != "" and pd.isnull(row[config_dict["ncbi"]["SRA_file_column2"]]) == False:
-                    file = ET.SubElement(addfile, "File")
-                    file.set("cloud_url", row[config_dict["ncbi"]["SRA_file_column2"]])
-                    datatype=ET.SubElement(file, "DataType")
-                    datatype.text = "generic-data"
+                # NOTE: we currently only support interleaved FASTQ files
+                # This code path path getting executed even when row[config_dict["ncbi"]["SRA_file_column2"]
+                # was an empty string
+                # if config_dict["ncbi"]["SRA_file_column2"] != "" and pd.isnull(row[config_dict["ncbi"]["SRA_file_column2"]]) == False:
+                #     file = ET.SubElement(addfile, "File")
+                #     file.set("cloud_url", row[config_dict["ncbi"]["SRA_file_column2"]])
+                #     datatype=ET.SubElement(file, "DataType")
+                #     datatype.text = "generic-data"
             elif config_dict["ncbi"]["SRA_file_location"].lower() == "local":
                 file = ET.SubElement(addfile, "File")
                 file.set("file_path", os.path.basename(row[config_dict["ncbi"]["SRA_file_column1"]]))
