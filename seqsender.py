@@ -346,7 +346,7 @@ def update_log(upload_log_path: str):
                     Genbank_status=submission_status
                 )
                 print("Status: " + submission_status)
-                if submission_status == "processed-ok" and config_dict["general"]["submit_GISAID"].lower == "true" and row["type"] != "Test":
+                if submission_status == "processed-ok" and config_dict["general"]["submit_GISAID"] and row["type"] != "Test":
                     print("\nSubmitting to GISAID: " + row["name"])
                     submit_gisaid(unique_name=row["name"], config=row["config"], upload_log_path=upload_log_path, test=row["type"])
     #Check GISAID
