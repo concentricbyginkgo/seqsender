@@ -346,18 +346,6 @@ def update_log(upload_log_path: str):
                     Genbank_status=submission_status
                 )
                 print("Status: " + submission_status)
-                if submission_status == "processed-ok" and config_dict["general"]["submit_GISAID"] and row["type"] != "Test":
-                    print("\nSubmitting to GISAID: " + row["name"])
-                    submit_gisaid(unique_name=row["name"], config=row["config"], upload_log_path=upload_log_path, test=row["type"])
-    #Check GISAID
-    main_df = _read_upload_log(upload_log_path)
-    df = main_df.loc[(main_df['GISAID_submitted_total'] != None) & (main_df['GISAID_submitted_total'] != "") & (main_df['GISAID_submitted_total'].isnull() == False) & (main_df['type'] != "Test") & (main_df['GISAID_failed_total'] != "0")]
-    if len(df.index) != 0:
-        for index, row in df.iterrows():
-            initialize_global_variables(row["config"])
-            if config_dict["general"]["submit_GISAID"] == True:
-                print("\nSubmitting to GISAID: " + row["name"])
-                submit_gisaid(unique_name=row["name"], config=row["config"], upload_log_path=upload_log_path, test=row["type"])
 
 #Read output log from gisaid submission script
 def read_log(unique_name, file):
@@ -586,9 +574,9 @@ def start_submission(unique_name, config, upload_log_path, test, overwrite):
         submit_biosample_sra(unique_name, config, upload_log_path, test, "biosample", overwrite)
     elif config_dict["general"]["submit_SRA"] == True:
         submit_biosample_sra(unique_name, config, upload_log_path, test, "sra", overwrite)
-    elif config_dict["general"]["submit_Genbank"] == True:
+    if config_dict["general"]["submit_Genbank"] == True:
         submit_genbank(unique_name=unique_name, config=config, upload_log_path=upload_log_path, test=test, overwrite=overwrite)
-    elif config_dict["general"]["submit_GISAID"] == True:
+    if config_dict["general"]["submit_GISAID"] == True:
         submit_gisaid(unique_name=unique_name, config=config, upload_log_path=upload_log_path, test=test)
 
 def test_bioproject(config):
