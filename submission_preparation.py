@@ -265,8 +265,6 @@ def gisaid_write(unique_name, main_df):
         else:
             author_list = author_list + "," + name["first"] + " " + name["last"]
     gisaid_df["covv_authors"] = author_list
-    if config_dict["general"]["baseline_surveillance"] == True:
-        gisaid_df["covv_sampling_strategy"] = "Baseline surveillance"
     for col in all_columns:
         if col not in gisaid_df:
             gisaid_df[col] = ""
