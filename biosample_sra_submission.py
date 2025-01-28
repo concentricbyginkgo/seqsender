@@ -66,4 +66,4 @@ def submit_ftp(unique_name, ncbi_sub_type, config, test, overwrite):
                 print('submit.ready upload failed.')
     except ftplib.all_errors as e:
         print('FTP error:', e)
-        sys.exit()
+        raise
