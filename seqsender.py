@@ -526,7 +526,19 @@ def submit_biosample_sra(unique_name, config, upload_log_path, test, ncbi_sub_ty
         test_type = False
     else:
         test_type = True
-    biosample_sra_submission.submit_ftp(unique_name=unique_name, ncbi_sub_type=ncbi_sub_type, config=config, test=test_type, overwrite=overwrite)
+
+    try:
+        biosample_sra_submission.submit_ftp(
+            unique_name=unique_name,
+            ncbi_sub_type=ncbi_sub_type,
+            config=config,
+            test=test_type,
+            overwrite=overwrite
+        )
+    except Exception as e:
+        print("submit_ftp error: " + str(e))
+        return
+
     curr_time = datetime.now()
     if ncbi_sub_type == "biosample_sra":
         update_csv(
