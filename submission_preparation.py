@@ -96,7 +96,8 @@ def generate_XML(unique_name, main_df, generate_biosample, generate_sra):
             if config_dict["general"]["baseline_surveillance"] == True:
                 attr_str = ET.SubElement(attr, "Attribute")
                 attr_str.set("attribute_name", "purpose_of_sequencing")
-                attr_str.text = "baseline surveillance (random sampling)"
+                # attr_str.text = "baseline surveillance (random sampling)"
+                attr_str.text = "traveler-based surveillance"
             id = ET.SubElement(addData, "Identifier")
             spuid = ET.SubElement(id, "SPUID")
             spuid.set("spuid_namespace",config_dict["ncbi"]["Center_title"])
@@ -456,7 +457,8 @@ def write_submission_files(unique_name, main_df):
 # Write fasta files
 def ncbi_write(unique_name, main_df):
     if config_dict["general"]["baseline_surveillance"] == True:
-        main_df["final_ncbi_fasta_name"] = main_df[config_dict["ncbi"]["Genbank_sample_name_col"]] +  " [keyword=purposeofsampling:baselinesurveillance]"
+        # main_df["final_ncbi_fasta_name"] = main_df[config_dict["ncbi"]["Genbank_sample_name_col"]] +  " [keyword=purposeofsampling:baselinesurveillance]"
+        main_df["final_ncbi_fasta_name"] = main_df[config_dict["ncbi"]["Genbank_sample_name_col"]] +  " [keyword=purposeofsampling:traveler-based surveillance]"
     else:
         main_df["final_ncbi_fasta_name"] = main_df[config_dict["ncbi"]["Genbank_sample_name_col"]]
     records = []
